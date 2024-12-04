@@ -1,4 +1,4 @@
-//Highest / Lowest Frequency Elements
+Highest / Lowest Frequency Elements
 void merge(std::vector<int>& v, int l, int m, int r){
     int i, j, k,n1 = m - l + 1,n2 = r - m;
     std::vector<int>L(n1), R(n2);
