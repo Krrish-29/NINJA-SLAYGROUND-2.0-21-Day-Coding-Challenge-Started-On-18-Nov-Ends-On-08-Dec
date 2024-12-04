@@ -1,0 +1,6 @@
+//Reverse a Number
+int reverseNumber(int n){
+    std::string str=std::to_string(n);
+    std::reverse(str.begin(),str.end());
+    return std::stoi(str);
+}
