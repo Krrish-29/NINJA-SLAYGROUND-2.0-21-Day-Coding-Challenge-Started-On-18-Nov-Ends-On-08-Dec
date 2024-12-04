@@ -1,0 +1,47 @@
+// Implement Lower Bound
+// int binarysearch(vector<int>arr,int left,int right,int target){
+// 	if(left<=right){
+// 		int middle=left+(right-left)/2;
+// 		if(arr[middle]==target){
+// 			return  middle;
+// 		}
+// 		else if(arr[middle]>target){
+// 			return binarysearch(arr,left,middle-1,target);
+// 		}
+// 		else{
+// 			return binarysearch(arr,middle+1,right,target);
+// 		}
+// 	}
+// 	return -1;
+// }
+// int lowerBound(vector<int> arr, int n, int x) {
+// 	if(n>0){
+// 		int lowerbound=binarysearch(arr, 0, n-1, x);
+// 		if(lowerbound==-1){
+// 			if(arr[0]>x){
+// 				return 0;
+// 			}
+// 			else{
+// 				lowerbound=n;
+// 				while(arr[lowerbound-1]>x&&lowerbound>=1){
+// 					lowerbound--;
+// 				}
+// 				return lowerbound;
+// 			}
+// 		}
+// 		else{
+// 			while(lowerbound>=1&&arr[lowerbound-1]==arr[lowerbound]){
+// 				lowerbound=binarysearch(arr,0,lowerbound-1,x);
+// 			}
+// 			return lowerbound;
+// 		}
+// 	}
+// 	else{
+// 		return 0;
+// 	}
+// }
+int lowerBound(std::vector<int>& arr, int n, int x) { 
+	auto it = std::lower_bound(arr.begin(), arr.end(), x);
+	int lowerbound = it - arr.begin(); 
+	return lowerbound; 
+}
