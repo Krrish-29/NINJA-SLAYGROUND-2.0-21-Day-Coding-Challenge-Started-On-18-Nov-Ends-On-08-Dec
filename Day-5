@@ -1,0 +1,15 @@
+// Check Sorted Array
+int isSorted(int n, vector<int> a) {
+    int counter=1;
+    for(int i=1;i<n;i++){
+        if(a[i-1]<=a[i]){
+            counter+=1;
+        }
+    }
+    if(counter==n){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
