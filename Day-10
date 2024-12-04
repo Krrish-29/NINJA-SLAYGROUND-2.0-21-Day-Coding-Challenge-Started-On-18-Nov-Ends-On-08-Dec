@@ -1,71 +1,71 @@
-// Two Sum
-#include <iostream> 
-#include <vector> 
-#include <algorithm>
-void merge(vector<int>&v,int left,int middle,int right){
-    int i,j,k,n1=middle-left+1,n2=right-middle;
-    vector<int>L(n1),R(n2);
-    for(i=0;i<n1;i++){
-        L[i]=v[i+left];
-    }
-    for(j=0;j<n2;j++){
-        R[j]=v[j+1+middle];
-    }
-    i=0;j=0;k=left;
-    while(i<n1&&j<n2){
-        if(L[i]<=R[j]){
-            v[k]=L[i];
+//Highest / Lowest Frequency Elements
+void merge(std::vector<int>& v, int l, int m, int r){
+    int i, j, k,n1 = m - l + 1,n2 = r - m;
+    std::vector<int>L(n1), R(n2);
+    for (i = 0; i < n1; i++)
+        L[i] = v[l + i];
+    for (j = 0; j < n2; j++)
+        R[j] = v[m + 1 + j];
+    i = 0,j = 0,k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            v[k] = L[i];
             i++;
         }
-        else{
-            v[k]=R[j];
+        else {
+            v[k] = R[j];
             j++;
         }
         k++;
     }
-    while(i<n1){
-        v[k]=L[i];
+    while (i < n1) {
+        v[k] = L[i];
         i++;
         k++;
     }
-    while(j<n2){
-        v[k]=R[j];
+    while (j < n2) {
+        v[k] = R[j];
         j++;
         k++;
     }
 }
-bool binary_search(vector<int>v,int left ,int right,int target){
-    if(left<=right){
-        int middle = left+(right-left)/2;
-        if(v[middle]==target){
-            return true;
-        }
-        else if(v[middle]>target){
-            return binary_search(v, left, middle-1,  target);
-        }
-        else if (v[middle]<target){
-            return binary_search(v, middle+1, right, target);
-        }
-    }
-    return false;
-}
-void sort(vector<int>&v,int left,int right){
-    if(left<right){
-        int middle=left+(right-left)/2;
-        sort(v,left,middle);
-        sort(v,middle+1,right);
-        merge(v,left,middle,right);
+void mergeSort(std::vector<int>& v, int l, int r){
+    if (l < r) {
+        int m = l + (r - l) / 2;
+        mergeSort(v, l, m);
+        mergeSort(v, m + 1, r);
+        merge(v, l, m, r);
     }
 }
-string read(int n, vector<int> book, int target){
-    sort(book,0,n-1);
-    for(int i=1;i<100000;i++){
-        bool found1 = binary_search(book,0,n-1,target-i);
-        bool found2 = binary_search(book,0,n-1,i);
-        if(found1&&found2){
-            return "YES";
-            break;
+std::vector<int> getFrequencies(std::vector<int>& v) {
+    std::vector <int>answer(2);
+    mergeSort(v,0,v.size()-1);
+    int smallest=v[0],largest=v[0],highestfreq=0,lowestfreq=v.size(),counter=1;
+    for(int x=1;x<v.size();x++){
+        if(v[x]==v[x-1]){
+            counter++;
+        }
+        else{
+            if(counter>highestfreq){
+                highestfreq=counter;
+                largest=v[x-1];
+            }
+            if(counter<lowestfreq){
+                lowestfreq=counter;
+                smallest=v[x-1];
+            }
+            counter=1;
         }
     }
-    return "NO";
+    if (counter > highestfreq) { 
+        highestfreq = counter; 
+        largest = v.back(); 
+    } 
+    if (counter < lowestfreq) { 
+        lowestfreq = counter; 
+        smallest = v.back(); 
+    }
+    answer[0]=largest;
+    answer[1]=smallest;
+    return answer;
 }
