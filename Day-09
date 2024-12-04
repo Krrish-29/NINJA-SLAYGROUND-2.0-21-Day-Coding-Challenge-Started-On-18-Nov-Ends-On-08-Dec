@@ -1,71 +1,89 @@
-//Highest / Lowest Frequency Elements
-void merge(std::vector<int>& v, int l, int m, int r){
-    int i, j, k,n1 = m - l + 1,n2 = r - m;
-    std::vector<int>L(n1), R(n2);
-    for (i = 0; i < n1; i++)
-        L[i] = v[l + i];
-    for (j = 0; j < n2; j++)
-        R[j] = v[m + 1 + j];
-    i = 0,j = 0,k = l;
-    while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            v[k] = L[i];
+//Second Largest Number
+void merge(vector<int> &a,int left,int middle,int right){
+    int i,j,k,n1=middle-left+1,n2=right-middle,L[n1],R[n2];
+    for(i=0;i<n1;i++){
+        L[i]=a[i+left];
+    }
+    for(j=0;j<n2;j++){
+        R[j]=a[middle+1+j];
+    }
+    for(i=0,j=0,k=left;i<n1&&j<n2;k++){
+        if(L[i]>=R[j]){
+            a[k]=R[j];
+            j++;     
+        }
+        else{
+            a[k]=L[i];
             i++;
         }
-        else {
-            v[k] = R[j];
-            j++;
-        }
-        k++;
     }
-    while (i < n1) {
-        v[k] = L[i];
+    while(i<n1){
+        a[k]=L[i];
         i++;
         k++;
     }
-    while (j < n2) {
-        v[k] = R[j];
+    while(j<n2){
+        a[k]=R[j];
         j++;
         k++;
     }
 }
-void mergeSort(std::vector<int>& v, int l, int r){
-    if (l < r) {
-        int m = l + (r - l) / 2;
-        mergeSort(v, l, m);
-        mergeSort(v, m + 1, r);
-        merge(v, l, m, r);
-    }
+void sort(vector<int>&a,int left,int right){
+  if (left < right) {
+    int middle = left + (right - left) / 2;
+    sort(a, left, middle);
+    sort(a, middle+1, right);
+    merge(a,left,middle,right);
+  }
 }
-std::vector<int> getFrequencies(std::vector<int>& v) {
-    std::vector <int>answer(2);
-    mergeSort(v,0,v.size()-1);
-    int smallest=v[0],largest=v[0],highestfreq=0,lowestfreq=v.size(),counter=1;
-    for(int x=1;x<v.size();x++){
-        if(v[x]==v[x-1]){
-            counter++;
+vector<int> getSecondOrderElements(int size, vector<int> a) {
+    vector<int> answer(2);
+    sort(a,0,size-1);
+    answer[0]=a[size-2];
+    answer[1]=a[1];
+    return answer;
+}//Second Largest Number
+void merge(vector<int> &a,int left,int middle,int right){
+    int i,j,k,n1=middle-left+1,n2=right-middle,L[n1],R[n2];
+    for(i=0;i<n1;i++){
+        L[i]=a[i+left];
+    }
+    for(j=0;j<n2;j++){
+        R[j]=a[middle+1+j];
+    }
+    for(i=0,j=0,k=left;i<n1&&j<n2;k++){
+        if(L[i]>=R[j]){
+            a[k]=R[j];
+            j++;     
         }
         else{
-            if(counter>highestfreq){
-                highestfreq=counter;
-                largest=v[x-1];
-            }
-            if(counter<lowestfreq){
-                lowestfreq=counter;
-                smallest=v[x-1];
-            }
-            counter=1;
+            a[k]=L[i];
+            i++;
         }
     }
-    if (counter > highestfreq) { 
-        highestfreq = counter; 
-        largest = v.back(); 
-    } 
-    if (counter < lowestfreq) { 
-        lowestfreq = counter; 
-        smallest = v.back(); 
+    while(i<n1){
+        a[k]=L[i];
+        i++;
+        k++;
     }
-    answer[0]=largest;
-    answer[1]=smallest;
+    while(j<n2){
+        a[k]=R[j];
+        j++;
+        k++;
+    }
+}
+void sort(vector<int>&a,int left,int right){
+  if (left < right) {
+    int middle = left + (right - left) / 2;
+    sort(a, left, middle);
+    sort(a, middle+1, right);
+    merge(a,left,middle,right);
+  }
+}
+vector<int> getSecondOrderElements(int size, vector<int> a) {
+    vector<int> answer(2);
+    sort(a,0,size-1);
+    answer[0]=a[size-2];
+    answer[1]=a[1];
     return answer;
 }
