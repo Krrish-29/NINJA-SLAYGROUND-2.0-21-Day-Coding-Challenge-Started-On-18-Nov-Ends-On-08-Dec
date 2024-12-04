@@ -1,0 +1,10 @@
+//Number of digits
+int countDigits(int n){
+    int digits=0;
+	if(n==0){
+		return 1;
+	}
+	else{
+		return std::log10(n)+1;
+	}
+}
