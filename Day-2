@@ -1,0 +1,12 @@
+//Nth Fibonacci Number
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+        int num;
+        std::cin >> num;
+        int array[num+1]={0,1};
+        for(int i=2;i<=num;i++){
+                array[i]=array[i-1]+array[i-2];
+        }
+        std::cout <<array[num]<<std::endl;
+}
