@@ -1,45 +1,11 @@
-//Second Largest Number
-void merge(vector<int> &a,int left,int middle,int right){
-    int i,j,k,n1=middle-left+1,n2=right-middle,L[n1],R[n2];
-    for(i=0;i<n1;i++){
-        L[i]=a[i+left];
-    }
-    for(j=0;j<n2;j++){
-        R[j]=a[middle+1+j];
-    }
-    for(i=0,j=0,k=left;i<n1&&j<n2;k++){
-        if(L[i]>=R[j]){
-            a[k]=R[j];
-            j++;     
-        }
-        else{
-            a[k]=L[i];
-            i++;
+//GCD or HCF
+int calcGCD(int n, int m){
+    int i,j,array[m+n]={0};
+    for(i=1;i<=n&&i<=m;i++){
+        if(n%i==0&&m%i==0){
+            array[i]=i;
+            j=i;
         }
     }
-    while(i<n1){
-        a[k]=L[i];
-        i++;
-        k++;
-    }
-    while(j<n2){
-        a[k]=R[j];
-        j++;
-        k++;
-    }
-}
-void sort(vector<int>&a,int left,int right){
-  if (left < right) {
-    int middle = left + (right - left) / 2;
-    sort(a, left, middle);
-    sort(a, middle+1, right);
-    merge(a,left,middle,right);
-  }
-}
-vector<int> getSecondOrderElements(int size, vector<int> a) {
-    vector<int> answer(2);
-    sort(a,0,size-1);
-    answer[0]=a[size-2];
-    answer[1]=a[1];
-    return answer;
+    return array[j];
 }
