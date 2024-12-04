@@ -1,0 +1,19 @@
+//Prime Number
+#include <cmath>
+bool isPrime(int n){
+	if(n==1||n==2){
+		return false;
+	}
+	else if(n%2==0){
+		return false;
+	}
+	else{
+		for(int x=3;x<=pow(n,0.5);x++){
+			if(n%x==0){
+				return false;
+				break;
+			}
+		}
+	}
+	return true;
+}
