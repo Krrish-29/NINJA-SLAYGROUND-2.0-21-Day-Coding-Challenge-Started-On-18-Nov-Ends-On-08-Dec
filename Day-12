@@ -1,0 +1,17 @@
+//Add One To Number
+#include <bits/stdc++.h> 
+std::vector<int> addOneToNumber(std::vector<int> arr) { 
+    while((!arr.empty() && arr.front()==0)&&arr.size()>1){
+        arr.erase(arr.begin()); 
+    }
+    int n = arr.size(); 
+    for (int i = n -1; i >= 0; i--) { 
+        if (arr[i] < 9) { 
+            arr[i]++; 
+            return arr; 
+        } 
+        arr[i] = 0; 
+    } 
+    arr.insert(arr.begin(), 1); 
+    return arr; 
+}
