@@ -1,0 +1,29 @@
+//Spiral Matrix
+vector<int> spiralMatrix(vector<vector<int>>&MATRIX) {
+    vector<int>answer;
+    if (MATRIX.empty() || MATRIX[0].empty()) return answer;
+    int top=0,bottom=MATRIX.size()-1,left=0,right=MATRIX[0].size()-1;
+    while (top <= bottom && left <= right) {
+        for (int j=left; j <=right;j++) {
+            answer.push_back(MATRIX[top][j]);
+        }
+        top++;
+        for(int i=top; i<=bottom;i++){
+            answer.push_back(MATRIX[i][right]);
+        }
+        right--;
+        if (top <= bottom) {
+            for (int j = right; j >= left; j--) {
+              answer.push_back(MATRIX[bottom][j]);
+            }
+            bottom--;
+        }
+        if (left <= right) {
+            for (int i = bottom, j; i >= top; i--) {
+              answer.push_back(MATRIX[i][left]);
+            }
+            left++;
+        }
+    }
+    return answer;
+}
