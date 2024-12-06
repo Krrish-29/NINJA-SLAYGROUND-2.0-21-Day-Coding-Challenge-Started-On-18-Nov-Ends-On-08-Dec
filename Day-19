@@ -1,0 +1,48 @@
+// Zero Matrix
+#include <bits/stdc++.h> 
+void setRowZero(std::vector<std::vector<int>>& matrix, int row) { 
+	if (row >= 0 && row < matrix.size()) { 
+		std::fill(matrix[row].begin(), matrix[row].end(), 0); 
+	} 
+}
+void setColumnZero(std::vector<std::vector<int>>& matrix, int col) { 
+	if (matrix.empty() || col < 0 || col >= matrix[0].size()) { 
+		return; 
+	} 
+	for (auto& row : matrix) { 
+		row[col] = 0; 
+	}
+}
+vector<vector<int>> zeroMatrix(vector<vector<int>> &matrix, int n, int m) {
+	vector<int>zeroindex;
+	if(n*m==1) return matrix;
+	for(int x=0;x<n;x++){
+		for(int y=0;y<m;y++){
+			if(matrix[x][y]==0){
+				zeroindex.push_back(x);
+				zeroindex.push_back(y);
+			}
+		}
+	}
+	for (int i = 1; i <= zeroindex.size(); i++) {
+		if(i%2==1){
+			setRowZero(matrix, zeroindex[i-1]);
+		}
+		else{
+			setColumnZero(matrix, zeroindex[i-1]);
+		}
+	}
+	// for(int i=1;i<=zeroindex.size();i++){
+	// 	if(i%2==1){
+	// 		for(int y=0;y<=n;y++){
+	// 			matrix[zeroindex[i-1]][y]=0;
+	// 		}
+	// 	}
+	// 	else{
+	// 		for(int x=0;x<m-1;x++){
+	// 			matrix[x][zeroindex[i-1]]=0;
+	// 		}
+	// 	}
+	// }
+	return matrix;
+}
